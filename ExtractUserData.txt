@@ -1,0 +1,9 @@
+This command-line app is used for generating 2 json files with Merchant and Operator data from postgres database. Those
+json files are used for importing user to Cognito and also data validation.
+
+run the jar with
+java -jar ExtractUserData-1.0-SNAPSHOT
+Then insert username/password
+2 json files will be generated, They will be used for Cognito User Import:
+MerchantUsers.json has all the merchant users' email, user group and email status.
+OperatorUsers.json has all the operator users' email, user group and email status.
