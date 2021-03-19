@@ -14,6 +14,7 @@ public class DBOperations {
         Connection conn = DataSourceFactory.getPGConnection(userName,passWord);
         return conn;
     }
+    //select all merchant users except for the deleted
     static String merMinmumWithoutDeleted = "select pass.login_name, phg.group_id,cust.CUSTOMER_STATUS, cust.ID" +
             " from principal p" +
             " join credential c on c.principal_id = p.id" +
@@ -21,6 +22,7 @@ public class DBOperations {
             " join customer cust on cust.id = p.id" +
             " join principal_has_group phg on p.id = phg.principal_id" +
             " where CUSTOMER_STATUS!='DELETED'";
+    //select all operator users except for the deleted
     static String opsMinimumWithoutDeleted ="select pass.login_name, phg.group_id, fuser.STATUS, fuser.ID" +
             " from principal p" +
             " join credential c on c.principal_id = p.id" +

@@ -12,6 +12,10 @@ public class ExtractUserDataService {
         new DBOperations(dbUsername, dbPassword);
     }
 
+    /**
+     * Extract merchant users' data from postgres database
+     * @return list of merchat users
+     */
     public List<Merchant> getAllMerchantUser() {
         List<Merchant> operatorStatusList = new ArrayList<>();
         try (PreparedStatement pstmt = DBOperations.conn.prepareStatement(DBOperations.merMinmumWithoutDeleted)) {
@@ -25,18 +29,21 @@ public class ExtractUserDataService {
                         rs.getString("login_name"),
                         rs.getString("CUSTOMER_STATUS"),
                         rs.getString("group_id"));
-                System.out.println(merchant.getId());
-
                 operatorStatusList.add(merchant);
             }
         } catch (SQLException ex) {
             System.out.println(ex.getMessage());
             return null;
         }
-        System.out.println("size is "+operatorStatusList.size());
+        System.out.println("Extracted merchant users: "+operatorStatusList.size());
         return operatorStatusList;
 
     }
+
+    /**
+     * extract operator users' data from postgres database
+     * @return list of operator users
+     */
     public List<Operator> getAllOperatorUser() {
         List<Operator> operatorStatusList = new ArrayList<>();
         try (PreparedStatement pstmt = DBOperations.conn.prepareStatement(DBOperations.opsMinimumWithoutDeleted)) {
@@ -51,15 +58,13 @@ public class ExtractUserDataService {
                         rs.getString("STATUS"),
                         rs.getString("group_id")
                 );
-                System.out.println(operator.getId());
-
                 operatorStatusList.add(operator);
             }
         } catch (SQLException ex) {
             System.out.println(ex.getMessage());
             return null;
         }
-        System.out.println("size is "+operatorStatusList.size());
+        System.out.println("Extracted operator users: "+operatorStatusList.size());
         return operatorStatusList;
 
     }
